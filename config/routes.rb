@@ -1,5 +1,7 @@
 AepiAlphaPsi::Application.routes.draw do
 
+  get "users/new"
+
 	root to: 'static_pages#launch_page'	
 
 	match '/about', to: 'static_pages#about'

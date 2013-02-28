@@ -3,6 +3,7 @@ require 'spec_helper'
 describe "UserPages" do
 	
 	subject { page }
+	let(:user) { FactoryGirl.create(:user) }
 
 	describe "signup" do
 		before { visit signup_path }
@@ -36,5 +37,14 @@ describe "UserPages" do
 				it { should have_link('Sign out') }
 			end
 		end
+	end
+
+	describe "profile page" do
+		before do
+			valid_signin(user)
+			#visit user_path(user)
+		end	
+
+		it { should have_selector('title', text: user.name) }
 	end
 end

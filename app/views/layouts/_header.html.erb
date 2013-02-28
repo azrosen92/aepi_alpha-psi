@@ -1,0 +1,15 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+	<div class="navbar-inner">
+		<div class="container">
+			<%= link_to "Home", root_path %>
+			<% if signed_in? %>
+				<li id="fat-menu" class="dropdown">
+					<li class="divider"></li>
+					<li><%= link_to "Sign out", signout_path, method: "delete" %></li>
+				</li>
+			<% else %>
+				<li><%= link_to "Sign in", signin_path %></li>
+			<% end %>
+		</div>
+	</div>
+</header>

@@ -40,11 +40,15 @@ describe "UserPages" do
 	end
 
 	describe "profile page" do
-		before do
-			valid_signin(user)
-			#visit user_path(user)
-		end	
 
-		it { should have_selector('title', text: user.name) }
+		describe "when signed in" do
+			before {valid_signin(user) }
+			
+			it { should have_selector('title', text: user.name) }
+	end
+
+		describe "when not signed in" do
+
+		end
 	end
 end

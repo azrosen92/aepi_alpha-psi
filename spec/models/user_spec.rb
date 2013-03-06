@@ -2,11 +2,17 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  password_digest :string(255)
+#  remember_token  :string(255)
+#  year            :string(255)
+#  position        :string(255)
+#  bio             :string(255)
+#  status          :string(255)
 #
 
 require 'spec_helper'
@@ -27,6 +33,10 @@ describe User do
 	it { should respond_to(:password_confirmation) }
 	it { should respond_to(:remember_token) }
 	it { should respond_to(:authenticate) }
+	it { should respond_to(:year) }
+	it { should respond_to(:position) }
+	it { should respond_to(:bio) }
+	it { should respond_to(:status) }
 
 	it { should be_valid }
 
@@ -84,6 +94,32 @@ describe User do
 	describe "with password that is too short" do
 		before { @user.password = @user.password_confirmation = "a" * 5 }
 		it { should be_invalid }
+	end
+
+	describe "with invalid position" do
+		before { @user.position = "pledgemaster" }
+		it { should be_invalid }
+	end
+
+	describe "with valid position" do
+		POSITIONS = ["master", "lieutenant", "exchecquer", "scribe", "sentinal"]
+		POSITIONS.each do |pos|
+			before { @user.position = pos }
+			it { should be_valid }
+		end
+	end
+
+	describe "with invalid status" do
+		before { @user.status = "kevin" }
+		it { should be_invalid }
+	end
+
+	describe "with valid status" do
+		STATUS = ["brother", "parent"]
+		STATUS.each do |stat|
+			before { @user.status = stat }
+			it { should be_valid }
+		end
 	end
 
 	describe "return value of authenticate method" do

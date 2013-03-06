@@ -1,0 +1,25 @@
+<% provide(:title, full_title("News")) %>
+<h1>What's going on in AEPi...</h1>
+<%= current_user.position %>
+<% @stories.each do |story| %>
+	<% if story.image_path.nil? %>
+		<div id="newstitle"><%= story.title.titleize %></div>
+	<% else %>
+		<div id="newsimage"><%= image_tag(story.image_path) %></div>
+		<div id="newstitle"><%= story.title.titleize %></div>
+	<% end %>
+	<div id="newsbody"><%= story.story %></div>
+<% end %>
+<% if current_user && current_user.position == "scribe" %>
+	<%= form_for(@news) do |f| %>
+
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+
+		<%= f.label :story %>
+		<%= f.text_field :story %>
+	
+		<%= f.submit "Submit story", class: "btn btn-large btn-primary" %>
+	<% end %>
+<% end %>
+

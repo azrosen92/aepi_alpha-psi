@@ -1,0 +1,20 @@
+<% provide(:title, full_title("News")) %>
+<h1>What's Going on in AEPi</h1>
+
+<% @stories.each do |story| %>
+	<div id="news_title"><%= story.title.titleize %></div>
+	<div id="news_body"><%= story.body %></div>
+<% end %>
+
+<% if current_user && current_user.position == 'scribe' %>
+	<%= form_for(@story) do |f| %>
+		
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+
+		<%= f.label :body %>
+		<%= f.text_field :body %>
+
+		<%= f.submit "Submit story", class: "btn btn-large btn-primary" %>
+	<% end %>
+<% end %>
